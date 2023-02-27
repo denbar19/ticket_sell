@@ -24,9 +24,10 @@ public class PaymentController {
     private final CredentialsMapper mapper;
 
     @PostMapping("/payment")
-    public Mono<String> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
-        log.info("{}", paymentDto);
-        return paymentDto.flatMap(paymentService::createPayment).map(Payment::getId);
+    public Mono<Long> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
+        //paymentDto.subscribe(p -> System.out.println(("PaymentController.createPayment: " + p)));
+        return paymentDto.flatMap(paymentService::createPayment)
+                         .map(Payment::getId);
     }
 
     @GetMapping("/payment/{paymentId}/status")

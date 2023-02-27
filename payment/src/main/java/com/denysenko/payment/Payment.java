@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Entity
-@Table("payment")
+@Table(name = "payment", schema = "ticket_sell")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,9 +21,9 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private String id;
+    private Long id;
     @Column(name = "amount", nullable = false)
-    private String amount;
+    private Float amount;
     @NotNull
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(6) NOT NULL")
     private PaymentStatus status;

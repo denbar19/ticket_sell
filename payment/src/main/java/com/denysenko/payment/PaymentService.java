@@ -29,7 +29,7 @@ public class PaymentService {
         var random = new Random();
         PaymentStatus[] array = PaymentStatus.values();
         Payment payment = Payment.builder()
-                                 .amount(String.valueOf(paymentDto.getAmount()))
+                                 .amount(paymentDto.getAmount())
                                  // set random status to return random by task description
                                  .status(array[random.nextInt(array.length)])
                                  .checked(UNCHECKED)
