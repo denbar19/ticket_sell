@@ -21,7 +21,9 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
+    @Column(name = "amount", nullable = false)
+    private String amount;
     @NotNull
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(6) NOT NULL")
     private PaymentStatus status;

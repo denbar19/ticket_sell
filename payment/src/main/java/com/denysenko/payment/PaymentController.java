@@ -3,6 +3,7 @@ package com.denysenko.payment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -23,9 +24,9 @@ public class PaymentController {
     private final CredentialsMapper mapper;
 
     @PostMapping("/payment")
-    public String createPayment(@NotNull @RequestBody PaymentDto paymentDto) {
+    public Mono<String> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
         log.info("{}", paymentDto);
-        return paymentService.createPayment(mapper.toCredentials(paymentDto), paymentDto.getAmount());
+        return paymentDto.flatMap(paymentService::createPayment).map(Payment::getId);
     }
 
     @GetMapping("/payment/{paymentId}/status")
