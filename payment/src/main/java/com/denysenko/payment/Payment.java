@@ -10,7 +10,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity
 @Table(name = "payment", schema = "ticket_sell")
 @NoArgsConstructor
 @AllArgsConstructor

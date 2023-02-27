@@ -16,6 +16,7 @@ public class PaymentApplication {
         SpringApplication.run(PaymentApplication.class, args);
     }
 
+    // to sync timezone with postgres
     @PostConstruct
     public void init(){
         TimeZone.setDefault(TimeZone.getTimeZone(UTC));

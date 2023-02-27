@@ -26,8 +26,10 @@ public class PaymentController {
     @PostMapping("/payment")
     public Mono<Long> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
         //paymentDto.subscribe(p -> System.out.println(("PaymentController.createPayment: " + p)));
+
         return paymentDto.flatMap(paymentService::createPayment)
-                         .map(Payment::getId);
+                         .doOnNext(p -> log.info("{}", p))
+                         .flatMap(p -> Mono.justOrEmpty(p.getId()));
     }
 
     @GetMapping("/payment/{paymentId}/status")

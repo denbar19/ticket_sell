@@ -48,4 +48,4 @@ SELECT * FROM ticket WHERE payment_id IN ('1','2');
 SELECT * FROM route WHERE id IN ('1');
 
 INSERT INTO payment (amount, status, checked, created_date, updated_date)
-    VALUES (0.0, 'NEW', false, '2023-02-27T21:57:58.023686831', '2023-02-27T21:57:58.023686831');
+    VALUES (0.0, 'NEW', false, '2023-02-27T21:57:58.023686831', '2023-02-27T21:57:58.023686831') RETURNING *;
