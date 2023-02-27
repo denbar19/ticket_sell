@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.time.LocalDateTime;
 import java.util.Random;
-import java.util.UUID;
 
 import static com.denysenko.payment.PaymentStatus.FAILED;
 import static com.denysenko.payment.PaymentStatus.NEW;
@@ -34,6 +33,8 @@ public class PaymentService {
                                  // set random status to return random by task description
                                  .status(array[random.nextInt(array.length)])
                                  .checked(UNCHECKED)
+                                 .createdDate(LocalDateTime.now())
+                                 .updatedDate(LocalDateTime.now())
                                  .build();
         return paymentRepository.save(payment);
     }

@@ -1,6 +1,9 @@
 CREATE DATABASE ticket_sell;
 CREATE SCHEMA ticket_sell;
 
+SELECT * FROM pg_timezone_names WHERE abbrev = current_setting('TIMEZONE');
+SHOW TIMEZONE;
+
 CREATE TABLE IF NOT EXISTS client (
                                     id BIGSERIAL PRIMARY KEY,
                                     first_name VARCHAR(50) NOT NULL,
@@ -31,7 +34,7 @@ CREATE TABLE IF NOT EXISTS payment (
                                     status VARCHAR(6) NOT NULL,
                                     checked BOOLEAN NOT NULL DEFAULT false,
                                     created_date TIMESTAMP NOT NULL,
-                                    updated_date TIMESTAMP NOT NULL
+                                    updated_date TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 UPDATE route r SET available_seats = (SELECT available_seats FROM route WHERE id = '1') - 1

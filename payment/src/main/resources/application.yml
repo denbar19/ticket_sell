@@ -8,14 +8,23 @@ logging:
   level:
     root: ERROR
     org.springframework.web: TRACE
-    org.springframework.r2dbc: DEBUG
+    org.springframework.r2dbc: TRACE
     com.denysenko: DEBUG
 
 spring:
   r2dbc:
-    url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?schema=ticket_sell
+    url: r2dbc:postgresql://localhost:15432/ticket_sell?schema=ticket_sell?connectionTimeZone=UTC
     username: admin
     password: admin
     pool:
       enabled: false
+
+#  data:
+#    r2dbc:
+#      repositories:
+#        enabled: true
+
+#  datasource:
+#    hikari:
+#      connection-init-sql: SET TIME ZONE 'UTC'
 
