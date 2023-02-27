@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+logging:
+  file:
+    name:
+      /logs/app.log
+  level:
+    root: ERROR
+    org.springframework.web: TRACE
+    org.springframework.r2dbc: DEBUG
+    com.denysenko: DEBUG
+
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?schema=ticket_sell
+    username: admin
+    password: admin
+    pool:
+      enabled: false
+
