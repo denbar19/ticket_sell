@@ -1,5 +1,9 @@
-package com.denysenko.payment;
+package com.denysenko.payment.service;
 
+import com.denysenko.payment.Payment;
+import com.denysenko.payment.PaymentDto;
+import com.denysenko.payment.PaymentStatus;
+import com.denysenko.payment.persistanse.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,28 +31,26 @@ public class PaymentService {
         log.debug("createPayment: {}", paymentDto);
         // TODO create or check client, but in ticket service the same
         // maybe another microservice
+
         var random = new Random();
-        PaymentStatus[] array = PaymentStatus.values();
         Payment payment = Payment.builder()
                                  .id(UUID.randomUUID())
                                  .amount(paymentDto.getAmount())
                                  // set random status to return random by task description
-                                 .status(array[random.nextInt(array.length)])
+                                 .status((short) random.nextInt(PaymentStatus.values().length))
                                  .checked(UNCHECKED)
                                  .createdDate(LocalDateTime.now())
                                  //.updatedDate(LocalDateTime.now())
                                  .build();
-        Mono<Payment> save = paymentRepository.save(payment);
-//        save.subscribe(p -> log.info("{}", p));
-        return save;
+        return paymentRepository.save(payment);
     }
 
     public Flux<String> getNewPaymentsIds() {
-        return paymentRepository.getPaymentIdsByStatus(NEW, UNCHECKED);
+        return paymentRepository.getPaymentIdsByStatus(NEW.getStatusIndex(), UNCHECKED);
     }
 
     public Flux<String> getFailedPaymentsIds() {
-        return paymentRepository.getPaymentIdsByStatus(FAILED, UNCHECKED);
+        return paymentRepository.getPaymentIdsByStatus(FAILED.getStatusIndex(), UNCHECKED);
     }
 
 }

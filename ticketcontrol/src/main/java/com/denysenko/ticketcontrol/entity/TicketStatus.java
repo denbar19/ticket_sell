@@ -1,7 +1,7 @@
 package com.denysenko.ticketcontrol.entity;
 
-public enum TickerStatus {
+public enum TicketStatus {
     ACTIVE,
-    COMPLETE,
+    COMPLETED,
     PENDING
 }

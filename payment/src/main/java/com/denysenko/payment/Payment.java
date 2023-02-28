@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -22,15 +19,13 @@ import java.util.UUID;
 public class Payment {
 
     @Id
-    //@SequenceGenerator(name = "paymentIdSeq", sequenceName = "payment_id_seq", allocationSize = 1)
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private UUID id;
     @Column(name = "amount", nullable = false)
     private Float amount;
     @NotNull
-    @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(6) NOT NULL")
-    private PaymentStatus status;
+    @Column(name = "status", nullable = false, columnDefinition = "SMALLINT NOT NULL")
+    private short status;
     @NotNull
     @Column(name = "checked", nullable = false)
     private boolean checked;

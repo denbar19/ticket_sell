@@ -24,7 +24,7 @@ public class Ticket {
     private Long routeId;
     @NotNull
     @Column(name = "status", nullable = false)
-    private TickerStatus status;
+    private TicketStatus status;
     @Column(name = "payment_id")
     private Long paymentId;
 

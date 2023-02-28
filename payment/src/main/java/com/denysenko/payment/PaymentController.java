@@ -1,5 +1,7 @@
 package com.denysenko.payment;
 
+import com.denysenko.payment.service.PaymentService;
+import com.denysenko.payment.service.PaymentStatusService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -22,29 +26,28 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final PaymentStatusService paymentStatusService;
 
-    private final CredentialsMapper mapper;
+    //private final CredentialsMapper mapper;
 
     @PostMapping("/payment")
     public Mono<UUID> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
-        //paymentDto.subscribe(p -> System.out.println(("PaymentController.createPayment: " + p)));
-
         return paymentDto.flatMap(paymentService::createPayment)
                          .doOnNext(p -> log.info("createPayment: {}", p))
                          .flatMap(p -> Mono.justOrEmpty(p.getId()));
     }
 
     @GetMapping("/payment/{paymentId}/status")
-    public Mono<PaymentStatus> getNewPaymentsIds(@NotNull @PathVariable String paymentId) {
-        return paymentStatusService.getPaymentStatus(paymentId);
+    public Mono<String> getPaymentStatusByPaymentId(@NotNull @PathVariable UUID paymentId) {
+        return paymentStatusService.getPaymentStatus(paymentId)
+                                   .map(PaymentStatus::toString);
     }
 
-    @GetMapping("/new")
-    public Flux<String> getNewPaymentsIds() {
-        return paymentService.getNewPaymentsIds();
+    @GetMapping("/status/new")
+    public Mono<List<String>> getNewPaymentsIds() {
+        return paymentService.getNewPaymentsIds().collectList();
     }
 
-    @GetMapping("/failed")
-    public Flux<String> getFailedPaymentsIds() {
-        return paymentService.getFailedPaymentsIds();
+    @GetMapping("/status/failed")
+    public Mono<List<String>> getFailedPaymentsIds() {
+        return paymentService.getFailedPaymentsIds().collectList();
     }
 }
