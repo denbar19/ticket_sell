@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.Random;
+import java.util.UUID;
 
 import static com.denysenko.payment.PaymentStatus.FAILED;
 import static com.denysenko.payment.PaymentStatus.NEW;
@@ -29,14 +30,17 @@ public class PaymentService {
         var random = new Random();
         PaymentStatus[] array = PaymentStatus.values();
         Payment payment = Payment.builder()
+                                 .id(UUID.randomUUID())
                                  .amount(paymentDto.getAmount())
                                  // set random status to return random by task description
                                  .status(array[random.nextInt(array.length)])
                                  .checked(UNCHECKED)
                                  .createdDate(LocalDateTime.now())
-                                 .updatedDate(LocalDateTime.now())
+                                 //.updatedDate(LocalDateTime.now())
                                  .build();
-        return paymentRepository.save(payment);
+        Mono<Payment> save = paymentRepository.save(payment);
+//        save.subscribe(p -> log.info("{}", p));
+        return save;
     }
 
     public Flux<String> getNewPaymentsIds() {

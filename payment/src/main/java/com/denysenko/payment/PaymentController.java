@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -24,11 +25,11 @@ public class PaymentController {
     private final CredentialsMapper mapper;
 
     @PostMapping("/payment")
-    public Mono<Long> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
+    public Mono<UUID> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
         //paymentDto.subscribe(p -> System.out.println(("PaymentController.createPayment: " + p)));
 
         return paymentDto.flatMap(paymentService::createPayment)
-                         .doOnNext(p -> log.info("{}", p))
+                         .doOnNext(p -> log.info("createPayment: {}", p))
                          .flatMap(p -> Mono.justOrEmpty(p.getId()));
     }
 

@@ -29,11 +29,11 @@ CREATE TABLE IF NOT EXISTS route (
 );
 
 CREATE TABLE IF NOT EXISTS payment (
-                                    id BIGSERIAL PRIMARY KEY,
+                                    id uuid PRIMARY KEY,
                                     amount float NOT NULL,
                                     status VARCHAR(6) NOT NULL,
                                     checked BOOLEAN NOT NULL DEFAULT false,
-                                    created_date TIMESTAMP NOT NULL,
+                                    created_date TIMESTAMP NOT NULL DEFAULT current_timestamp,
                                     updated_date TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
@@ -49,3 +49,5 @@ SELECT * FROM route WHERE id IN ('1');
 
 INSERT INTO payment (amount, status, checked, created_date, updated_date)
     VALUES (0.0, 'NEW', false, '2023-02-27T21:57:58.023686831', '2023-02-27T21:57:58.023686831') RETURNING *;
+
+SELECT CURRVAL('payment_id_seq');
