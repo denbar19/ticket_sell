@@ -2,7 +2,7 @@ package com.denysenko.payment;
 
 import com.denysenko.payment.entity.PaymentDto;
 import com.denysenko.payment.service.PaymentService;
-import com.denysenko.payment.service.PaymentStatus;
+import com.denysenko.payment.entity.PaymentStatus;
 import com.denysenko.payment.service.PaymentStatusService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

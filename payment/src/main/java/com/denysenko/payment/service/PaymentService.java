@@ -3,6 +3,7 @@ package com.denysenko.payment.service;
 import com.denysenko.payment.entity.Payment;
 import com.denysenko.payment.entity.PaymentDto;
 import com.denysenko.payment.PaymentRepository;
+import com.denysenko.payment.entity.PaymentStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.UUID;
 
-import static com.denysenko.payment.service.PaymentStatus.FAILED;
-import static com.denysenko.payment.service.PaymentStatus.NEW;
+import static com.denysenko.payment.entity.PaymentStatus.FAILED;
+import static com.denysenko.payment.entity.PaymentStatus.NEW;
 
 @Slf4j
 @Service

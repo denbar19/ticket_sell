@@ -1,4 +1,4 @@
-package com.denysenko.payment.service;
+package com.denysenko.payment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

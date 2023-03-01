@@ -1,7 +1,7 @@
 package com.denysenko.payment;
 
 import com.denysenko.payment.entity.Payment;
-import com.denysenko.payment.service.PaymentStatus;
+import com.denysenko.payment.entity.PaymentStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.MethodOrderer;
