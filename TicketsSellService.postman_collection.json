@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "981ea455-c98c-4a04-bdbb-14170a422021",
+		"name": "TicketsSellService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14739775"
+	},
+	"item": [
+		{
+			"name": "Create Ticket",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"routeId\": \"67e2d854-b82c-11ed-afa1-0242ac120002\",\n    \"client\": {\n        \"id\": \"67e2d44e-b82c-11ed-afa1-0242ac120002\",\n        \"firstName\": \"Станіслав\",\n        \"lastName\": \"Дениcенко\",\n        \"middleName\": \"Дмитрович\"\n    }\n\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/tickets/ticket",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"tickets",
+						"ticket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Payment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"paymentId\", jsonData);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"amount\": \"21.50\",\n    \"firstName\": \"Станіслав\",\n    \"lastName\": \"Дениcенко\",\n    \"middleName\": \"Дмитрович\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/payments/payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"payments",
+						"payment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PaymentStatus",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{paymentServicePort}}/payments/payment/{{paymentId}}/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{paymentServicePort}}",
+					"path": [
+						"payments",
+						"payment",
+						"{{paymentId}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NEW Payments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{paymentServicePort}}/payments/status/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{paymentServicePort}}",
+					"path": [
+						"payments",
+						"status",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FAILED Payments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{paymentServicePort}}/payments/status/failed",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{paymentServicePort}}",
+					"path": [
+						"payments",
+						"status",
+						"failed"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
