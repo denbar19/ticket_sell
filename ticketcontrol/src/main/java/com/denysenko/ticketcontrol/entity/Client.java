@@ -1,27 +1,32 @@
 package com.denysenko.ticketcontrol.entity;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Table(name = "client", schema = "ticket_sell")
 @Data
-public class Client {
+public class Client implements Persistable {
 
     @Id
-    @Column(name = "id", nullable = false)
     private UUID id;
     @NotNull
-    @Column(name = "first_name", nullable = false)
+    @Column
     private String firstName;
     @NotNull
-    @Column(name = "last_name", nullable = false)
+    @Column
     private String lastName;
     @NotNull
-    @Column(name = "middle_name", nullable = false)
+    @Column
     private String middleName;
+
+    @Override
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

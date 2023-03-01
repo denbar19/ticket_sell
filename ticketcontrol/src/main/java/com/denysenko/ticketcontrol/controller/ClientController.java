@@ -32,7 +32,7 @@ public class ClientController {
     }
 
     @GetMapping("/client/{clientId}")
-    public Mono<ClientDto> getClientById(UUID clientId) {
+    public Mono<ClientDto> getClientById(@Valid @NotNull @PathVariable UUID clientId) {
         return clientService.getClientById(clientId)
                             .map(clientMapper::toClientDto);
     }

@@ -19,7 +19,6 @@ public class ClientService {
     private final ClientRepository clientRepository;
 
     public Mono<Client> createClient(Client client) {
-        client.setId(UUID.randomUUID());
         return clientRepository.save(client);
     }
 
