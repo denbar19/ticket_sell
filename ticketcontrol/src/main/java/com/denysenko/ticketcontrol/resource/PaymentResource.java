@@ -1,18 +1,15 @@
 package com.denysenko.ticketcontrol.resource;
 
-import com.denysenko.ticketcontrol.controller.ClientDto;
+import com.denysenko.ticketcontrol.controller.dto.ClientDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class PaymentResource {

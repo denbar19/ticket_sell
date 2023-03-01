@@ -1,4 +1,4 @@
-package com.denysenko.ticketcontrol.controller;
+package com.denysenko.ticketcontrol.controller.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Builder;

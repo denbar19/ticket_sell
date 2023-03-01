@@ -1,20 +1,29 @@
 package com.denysenko.ticketcontrol.service;
 
 import com.denysenko.ticketcontrol.entity.Client;
+import com.denysenko.ticketcontrol.repository.ClientRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.Optional;
+import java.util.UUID;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor = @__({@Autowired}))
 public class ClientService {
 
-    //ClientRepository;
+    private final ClientRepository clientRepository;
 
-    public Optional<String> getClientId(Client client) {
-        return Optional.empty();
+    public Mono<Client> createClient(Client client) {
+        client.setId(UUID.randomUUID());
+        return clientRepository.save(client);
     }
 
-    public Optional<Client> getClientById() {
-        return Optional.empty();
+    public Mono<Client> getClientById(UUID clientId) {
+        return clientRepository.findById(clientId);
     }
 }

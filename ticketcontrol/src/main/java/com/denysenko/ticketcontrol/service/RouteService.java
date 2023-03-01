@@ -31,7 +31,7 @@ public class RouteService {
     }
 
     public Mono<Route> reduceTickets(UUID routeId, int count) {
-        return routeRepository.reduceTickets(routeId, count);
+        return routeRepository.reduceTickets(routeId.toString(), count);
     }
 
 }

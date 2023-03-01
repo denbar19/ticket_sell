@@ -1,15 +1,12 @@
 package com.denysenko.ticketcontrol.entity;
 
-
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
-
 
 @Table(name = "client", schema = "ticket_sell")
 @Data

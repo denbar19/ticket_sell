@@ -1,26 +1,18 @@
 package com.denysenko.ticketcontrol.service;
 
-import com.denysenko.ticketcontrol.Credentials;
-import com.denysenko.ticketcontrol.entity.Route;
-import com.denysenko.ticketcontrol.repository.TicketRepository;
-import com.denysenko.ticketcontrol.controller.TicketDto;
-import com.denysenko.ticketcontrol.entity.Client;
-import com.denysenko.ticketcontrol.entity.Ticket;
 import com.denysenko.ticketcontrol.mapper.mapstruct.ClientMapper;
-import com.denysenko.ticketcontrol.mapper.mapstruct.TicketMapper;
+import com.denysenko.ticketcontrol.repository.TicketRepository;
+import com.denysenko.ticketcontrol.controller.dto.TicketDto;
+import com.denysenko.ticketcontrol.entity.Ticket;
 import com.denysenko.ticketcontrol.resource.PaymentResource;
-import com.denysenko.ticketcontrol.resource.PaymentStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 import static com.denysenko.ticketcontrol.entity.TicketStatus.ACTIVE;
@@ -34,6 +26,8 @@ public class TicketControlService {
     private final ClientService clientService;
     private final PaymentResource paymentResource;
     private final TicketRepository ticketRepository;
+
+    private final ClientMapper clientMapper;
 
     public Mono<Ticket> saveTicket(TicketDto ticketDto) {
         log.debug("TicketBuyService.saveTicket {}", ticketDto);

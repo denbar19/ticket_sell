@@ -1,7 +1,7 @@
 package com.denysenko.ticketcontrol.mapper.mapstruct;
 
 import com.denysenko.ticketcontrol.entity.Ticket;
-import com.denysenko.ticketcontrol.controller.TicketDto;
+import com.denysenko.ticketcontrol.controller.dto.TicketDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

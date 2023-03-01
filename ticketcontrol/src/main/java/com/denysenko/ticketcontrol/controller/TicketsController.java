@@ -1,13 +1,12 @@
 package com.denysenko.ticketcontrol.controller;
 
+import com.denysenko.ticketcontrol.controller.dto.TicketDto;
 import com.denysenko.ticketcontrol.mapper.mapstruct.TicketMapper;
 import com.denysenko.ticketcontrol.service.TicketControlService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

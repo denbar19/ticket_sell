@@ -1,4 +1,4 @@
-package com.denysenko.ticketcontrol.controller;
+package com.denysenko.ticketcontrol.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -8,14 +8,14 @@ import java.time.LocalDateTime;
 
 @Data
 @JsonSerialize
-public class RouteDto {
+public class PaymentDto {
 
     private long id;
-    private String identity;
-    private String departureStation;
+    private long ticketId;
+    private String status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    private LocalDateTime departureDate;
-    private long price;
-    private int available_seats;
+    private LocalDateTime created;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    private LocalDateTime updated;
 
 }
