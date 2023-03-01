@@ -19,6 +19,10 @@ public class RouteService {
 
     private final RouteRepository routeRepository;
 
+    public Mono<Route> saveRoute(Route route) {
+        return routeRepository.save(route);
+    }
+
     public Mono<Route> getRouteById(UUID id) {
         return routeRepository.findById(id.toString());
     }

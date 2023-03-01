@@ -33,7 +33,7 @@ public class TicketControlService {
         log.debug("TicketBuyService.saveTicket {}", ticketDto);
 
         Ticket.TicketBuilder ticketBuilder = Ticket.builder()
-                                                   .id(UUID.randomUUID())
+                                                   //.id(UUID.randomUUID())
                                                    .clientId(ticketDto.getClient().getId())
                                                    .routeId(ticketDto.getRouteId())
                                                    .status(ACTIVE.getStatusIndex());

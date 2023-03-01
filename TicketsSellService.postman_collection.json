@@ -7,13 +7,25 @@
 	},
 	"item": [
 		{
-			"name": "Create Ticket",
+			"name": "Create Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"clientId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"routeId\": \"67e2d854-b82c-11ed-afa1-0242ac120002\",\n    \"client\": {\n        \"id\": \"67e2d44e-b82c-11ed-afa1-0242ac120002\",\n        \"firstName\": \"Станіслав\",\n        \"lastName\": \"Дениcенко\",\n        \"middleName\": \"Дмитрович\"\n    }\n\n    \n}",
+					"raw": "{\n    \"firstName\": \"Станіслав\",\n    \"lastName\": \"Дениcенко\",\n    \"middleName\": \"Дмитрович\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,15 +33,160 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8081/tickets/ticket",
+					"raw": "http://localhost:{{ticketControlServicePort}}/clients/client",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8081",
+					"port": "{{ticketControlServicePort}}",
+					"path": [
+						"clients",
+						"client"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Client by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{ticketControlServicePort}}/clients/client/{{clientId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{ticketControlServicePort}}",
+					"path": [
+						"clients",
+						"client",
+						"{{clientId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Route",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"routeId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"identity\": \"063K\",\n    \"departureStation\": \"Харків\",\n    \"departureDate\": \"2023-03-01T13:25:00.000Z\",\n    \"price\": 20.20,\n    \"availableSeats\": 20\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{ticketControlServicePort}}/routes/route",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{ticketControlServicePort}}",
+					"path": [
+						"routes",
+						"route"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Route by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{ticketControlServicePort}}/routes/route/{{routeId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{ticketControlServicePort}}",
+					"path": [
+						"routes",
+						"route",
+						"{{routeId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Ticket",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"pm.environment.set(\"ticketId\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"routeId\": \"67e2d854-b82c-11ed-afa1-0242ac120002\",\n    \"client\": {\n        \"id\": \"67e2d44e-b82c-11ed-afa1-0242ac120002\",\n        \"firstName\": \"Станіслав\",\n        \"lastName\": \"Дениcенко\",\n        \"middleName\": \"Дмитрович\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{ticketControlServicePort}}/tickets/ticket",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{ticketControlServicePort}}",
 					"path": [
 						"tickets",
 						"ticket"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ticket by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{ticketControlServicePort}}/tickets/ticket/{{ticketId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{ticketControlServicePort}}",
+					"path": [
+						"tickets",
+						"ticket",
+						"{{ticketId}}"
 					]
 				}
 			},
@@ -62,12 +219,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/payments/payment",
+					"raw": "http://localhost:{{paymentServicePort}}/payments/payment",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{paymentServicePort}}",
 					"path": [
 						"payments",
 						"payment"

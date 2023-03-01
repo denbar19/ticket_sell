@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -20,22 +20,21 @@ import java.util.UUID;
 public class Route {
 
     @Id
-    @Column(name = "id", nullable = false)
     private UUID id;
     @NotNull
-    @Column(name = "route_identity", nullable = false)
+    @Column("route_identity")
     private String identity;
     @NotNull
-    @Column(name = "departure_station", nullable = false)
+    @Column("departure_station")
     private String departureStation;
     @NotNull
-    @Column(name = "departure_date", nullable = false)
+    @Column("departure_date")
     private LocalDateTime departureDate;
     @NotNull
-    @Column(name = "price", nullable = false)
+    @Column("price")
     private Long price;
     @NotNull
-    @Column(name = "available_seats", nullable = false)
+    @Column("available_seats")
     private Integer availableSeats;
 
 }

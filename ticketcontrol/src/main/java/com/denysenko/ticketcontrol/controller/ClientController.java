@@ -7,12 +7,13 @@ import com.denysenko.ticketcontrol.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import org.springframework.lang.NonNull;
 import java.util.UUID;
 
 @Slf4j
@@ -25,14 +26,14 @@ public class ClientController {
     private final ClientService clientService;
     private final ClientMapper clientMapper;
 
-    @PostMapping("/client")
-    public Mono<ClientDto> createClient(@Valid @NotNull @RequestBody ClientDto client) {
+    @PostMapping(value = "/client", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ClientDto> createClient(@Valid @NonNull @RequestBody ClientDto client) {
         return clientService.createClient(clientMapper.toClient(client))
                             .map(clientMapper::toClientDto);
     }
 
     @GetMapping("/client/{clientId}")
-    public Mono<ClientDto> getClientById(@Valid @NotNull @PathVariable UUID clientId) {
+    public Mono<ClientDto> getClientById(@Valid @NonNull @PathVariable UUID clientId) {
         return clientService.getClientById(clientId)
                             .map(clientMapper::toClientDto);
     }

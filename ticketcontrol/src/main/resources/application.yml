@@ -4,9 +4,14 @@ server:
 logging:
   level:
     root: ERROR
-    org.springframework.web: TRACE
+    org.springframework.web: DEBUG
     org.springframework.r2dbc: DEBUG
     com.denysenko: DEBUG
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAM: DEBUG
+#    io:
+#      r2dbc:
+#        postgresql: TRACE
 
 spring:
   main:

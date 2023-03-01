@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS client
 
 CREATE TABLE IF NOT EXISTS ticket
 (
-    id         uuid PRIMARY KEY,
+    id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     client_id  uuid      NOT NULL,
     route_id   uuid      NOT NULL,
     status     SMALLINT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS ticket
 
 CREATE TABLE IF NOT EXISTS route
 (
-    id                uuid PRIMARY KEY,
+    id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
     route_identity    VARCHAR(50) NOT NULL,
     departure_station VARCHAR(50) NOT NULL,
     departure_date    TIMESTAMP   NOT NULL,

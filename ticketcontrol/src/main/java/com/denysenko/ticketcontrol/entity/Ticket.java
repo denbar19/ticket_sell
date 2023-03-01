@@ -2,10 +2,10 @@ package com.denysenko.ticketcontrol.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -16,18 +16,17 @@ import java.util.UUID;
 public class Ticket {
 
     @Id
-    @Column(name = "id", nullable = false)
     private UUID id;
     @NotNull
-    @Column(name = "client_id", nullable = false)
+    @Column("client_id")
     private UUID clientId;
     @NotNull
-    @Column(name = "route_id", nullable = false)
+    @Column("route_id")
     private UUID routeId;
     @NotNull
-    @Column(name = "status", nullable = false, columnDefinition = "SMALLINT NOT NULL")
+    @Column("status")
     private short status;
-    @Column(name = "payment_id")
+    @Column("payment_id")
     private UUID paymentId;
 
 }

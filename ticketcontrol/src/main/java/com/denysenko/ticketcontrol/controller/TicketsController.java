@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -28,13 +29,13 @@ public class TicketsController {
 
     @PostMapping(path = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<TicketDto> saveTicket(@Valid @RequestBody TicketDto ticket) {
-        log.info("{}", ticket);
+        log.debug("{}", ticket);
         return ticketService.saveTicket(ticket)
                             .map(mapper::toTicketDto);
     }
 
     @GetMapping("/ticket/{id}")
-    public Mono<TicketDto> getTicketById(@Valid @PathVariable UUID id) {
+    public Mono<TicketDto> getTicketById(@Valid @NonNull @PathVariable UUID id) {
         return ticketService.getTicketById(id)
                             .map(mapper::toTicketDto);
     }

@@ -11,18 +11,18 @@ import java.util.UUID;
 
 @Table(name = "client", schema = "ticket_sell")
 @Data
-public class Client implements Persistable {
+public class Client implements Persistable<UUID> {
 
     @Id
     private UUID id;
     @NotNull
-    @Column
+    @Column("first_name")
     private String firstName;
     @NotNull
-    @Column
+    @Column("last_name")
     private String lastName;
     @NotNull
-    @Column
+    @Column("middle_name")
     private String middleName;
 
     @Override
