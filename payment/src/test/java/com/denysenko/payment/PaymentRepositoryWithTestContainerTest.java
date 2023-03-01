@@ -1,6 +1,7 @@
 package com.denysenko.payment;
 
-import com.denysenko.payment.persistanse.PaymentRepository;
+import com.denysenko.payment.entity.Payment;
+import com.denysenko.payment.service.PaymentStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.MethodOrderer;
@@ -64,7 +65,7 @@ class PaymentRepositoryWithTestContainerTest {
         Mono<Payment> save = this.paymentRepository.save(Payment.builder()
                                                                 .id(uuid)
                                                                 .amount(0.0F)
-                                                                .status(PaymentStatus.NEW)
+                                                                .status(PaymentStatus.NEW.getStatusIndex())
                                                                 .checked(false)
                                                                 .createdDate(LocalDateTime.now())
                                                                 .createdDate(LocalDateTime.now())

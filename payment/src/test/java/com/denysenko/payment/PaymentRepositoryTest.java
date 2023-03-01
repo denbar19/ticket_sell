@@ -1,6 +1,7 @@
 package com.denysenko.payment;
 
-import com.denysenko.payment.persistanse.PaymentRepository;
+import com.denysenko.payment.entity.Payment;
+import com.denysenko.payment.service.PaymentStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,6 +12,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 import java.util.UUID;
 
 @Slf4j
@@ -26,16 +28,15 @@ class PaymentRepositoryTest {
     @Test
     void getPaymentStatus() {
         UUID uuid = UUID.randomUUID();
-
         Mono<Payment> save = this.paymentRepository.save(Payment.builder()
                                                                 .id(uuid)
                                                                 .amount(0.0F)
-                                                                .status(PaymentStatus.NEW)
+                                                                .status(PaymentStatus.NEW.getStatusIndex())
                                                                 .checked(false)
                                                                 .createdDate(LocalDateTime.now())
                                                                 .createdDate(LocalDateTime.now())
                                                                 .build());
-        //.subscribe(p -> log.info("{}", p));
+
         this.paymentRepository.getPaymentStatus(uuid);
         StepVerifier.create(save)
                     .expectNextCount(1)

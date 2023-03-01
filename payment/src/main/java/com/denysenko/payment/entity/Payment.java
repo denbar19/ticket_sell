@@ -1,4 +1,4 @@
-package com.denysenko.payment;
+package com.denysenko.payment.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

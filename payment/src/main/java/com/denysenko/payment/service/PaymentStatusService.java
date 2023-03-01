@@ -1,8 +1,6 @@
 package com.denysenko.payment.service;
 
-import com.denysenko.payment.Payment;
-import com.denysenko.payment.PaymentStatus;
-import com.denysenko.payment.persistanse.PaymentRepository;
+import com.denysenko.payment.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
-package com.denysenko.payment.persistanse;
+package com.denysenko.payment;
 
-import com.denysenko.payment.Payment;
-import com.denysenko.payment.PaymentStatus;
+import com.denysenko.payment.entity.Payment;
 import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.stereotype.Repository;
