@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -22,25 +20,61 @@ public class TicketInfoService {
     private final RouteService routeService;
     private final PaymentResource paymentResource;
 
-    // Билеты по маршрутам
-    public Map<Route, Ticket> getNewTicketsInfo() {
-        /*List<String> paymentIds = paymentResource.getNewPayments();
-        List<String> ticketIds = ticketBuyService.getTicketsByPaymentIds(paymentIds);
-        routeService.getRoutesByTickets().collectList().block()
-         null;*/
-        return null;
+    // Requests to three table can be made in RouteRepository with 3 table Join
+    // this below methods are for kinda all entities separate microservice
+    // tickets by routes
+    public Map<Route, List<Ticket>> getNewTicketsInfo() {
+        // check all NEW payments, get tickets by payment.ids
+        List<String> paymentIds = paymentResource.getNewPaymentsIds().
+                                                 stream()
+                                                 .map(UUID::toString)
+                                                 .collect(Collectors.toList());
+
+        List<Ticket> tickets = Optional.ofNullable(ticketControlService.getTicketsByPaymentIds(paymentIds)
+                                                                       .collectList()
+                                                                       .block())
+                                       .orElse(Collections.emptyList());
+
+        List<UUID> routesIds = tickets.stream()
+                                      .map(Ticket::getRouteId)
+                                      .collect(Collectors.toList());
+
+
+        // get by tickets.routeId routes
+        List<Route> routes = Optional.ofNullable(routeService.getRoutesById(routesIds)
+                                                             .collectList()
+                                                             .block())
+                                     .orElse(Collections.emptyList());
+
+
+        // collect result in one map for clarity
+        return routes.stream()
+                     .collect(Collectors.toMap(r -> r,
+                                               r -> tickets.stream()
+                                                           .filter(t -> t.getRouteId().equals(r.getId()))
+                                                           .collect(Collectors.toList())
+                     ));
     }
 
+    // list of routes to present them routeIdentity: availableSeats
     public List<Route> getFailedTicketsInfo() {
-        List<UUID> paymentIds = paymentResource.getFailedPaymentsIds();
-        List<String> routeIds = ticketControlService.getTicketsByPaymentIds(paymentIds)
-                                                    .collectList()
-                                                    .block()
-                                                    .stream()
-                                                    .map(Ticket::getRouteId)
-                                                    .map(String::valueOf)
-                                                    .collect(Collectors.toList());
-        return routeService.getRoutesById(routeIds).collectList().block();
+        List<String> paymentIds = paymentResource.getFailedPaymentsIds().stream()
+                                               .map(UUID::toString)
+                                               .collect(Collectors.toList());
+
+        List<Ticket> tickets = Optional.ofNullable(ticketControlService.getTicketsByPaymentIds(paymentIds)
+                                                                       .collectList()
+                                                                       .block())
+                                       .orElse(Collections.emptyList());
+
+        List<UUID> routesIds = tickets.stream()
+                                      .map(Ticket::getRouteId)
+                                      //.map(String::valueOf)
+                                      .collect(Collectors.toList());
+
+        return routeService.getRoutesById(routesIds)
+                           .collectList()
+                           .block();
     }
 
     public TicketInfo getTicketInfo(UUID ticketId) {

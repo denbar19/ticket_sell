@@ -51,8 +51,8 @@ public class TicketControlService {
         return ticketRepository.findById(routeId);
     }
 
-    public Flux<Ticket> getTicketsByPaymentIds(List<UUID> paymentIds) {
-        return ticketRepository.findAllById(paymentIds);
+    public Flux<Ticket> getTicketsByPaymentIds(List<String> paymentIds) {
+        return ticketRepository.getTicketsByPaymentsIds(paymentIds);
     }
 
 }

@@ -20,6 +20,7 @@ public class PaymentResource {
     private static final String SLASH = "/";
     private static final String PAYMENT = "/payment";
     private static final String STATUS = "/status";
+    private static final String NEW = "/new";
     private static final String FAILED = "/failed";
 
     // Json Keys
@@ -61,14 +62,13 @@ public class PaymentResource {
                         }).block();
     }
 
-    public void getNewPayments() {
-
+    public List<UUID> getNewPaymentsIds() {
+        return webClient.get().uri(STATUS + NEW).retrieve().bodyToFlux(UUID.class).collectList().block();
     }
 
     public List<UUID> getFailedPaymentsIds() {
         return webClient.get()
-                        .uri(FAILED)
-                        .accept(JSON)
+                        .uri(STATUS + FAILED)
                         .retrieve()
                         .bodyToFlux(UUID.class)
                         .collectList()

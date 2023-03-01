@@ -21,7 +21,7 @@ public class TicketControlApplication {
 
     // to sync timezone with postgres
     @PostConstruct
-    public void init(){
+    public void init() {
         TimeZone.setDefault(TimeZone.getTimeZone(UTC));
     }
 }

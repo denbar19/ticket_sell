@@ -26,7 +26,6 @@ public class TicketsController {
 
     private final TicketMapper mapper;
 
-
     @PostMapping(path = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<TicketDto> saveTicket(@Valid @RequestBody TicketDto ticket) {
         log.debug("{}", ticket);

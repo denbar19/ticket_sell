@@ -48,6 +48,7 @@ SELECT status FROM payment WHERE id = '1';
 
 SELECT id FROM payment WHERE status = 'NEW' AND checked = false;
 
+SELECT * FROM ticket WHERE payment_id IN ('e7853984-d40f-412c-b6a0-00760110fd10', 'a0a033fb-d3cc-47c2-9c2d-3b70aa3b2290');
 SELECT * FROM ticket WHERE payment_id IN ('1','2');
 SELECT * FROM route WHERE id IN ('1');
 

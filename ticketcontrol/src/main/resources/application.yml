@@ -11,7 +11,7 @@ logging:
     io.r2dbc.postgresql.PARAM: DEBUG
 #    io:
 #      r2dbc:
-#        postgresql: TRACE
+#        postgresql: DEBUG
 
 spring:
   main:

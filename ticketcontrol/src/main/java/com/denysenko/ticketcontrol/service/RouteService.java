@@ -23,19 +23,20 @@ public class RouteService {
         return routeRepository.save(route);
     }
 
-    public Mono<Route> getRouteById(UUID id) {
-        return routeRepository.findById(id.toString());
+    public Mono<Route> getRouteById(UUID routeId) {
+        return routeRepository.findById(routeId);
     }
-    public Flux<Route> getRoutesById(List<String> routeIds) {
+
+    public Flux<Route> getRoutesById(List<UUID> routeIds) {
         return routeRepository.findAllById(routeIds);
     }
 
     public Mono<Route> getRouteByTicketId(UUID routeId) {
-        return routeRepository.findById(routeId.toString());
+        return routeRepository.findById(routeId);
     }
 
     public Mono<Route> reduceTickets(UUID routeId, int count) {
-        return routeRepository.reduceTickets(routeId.toString(), count);
+        return routeRepository.reduceTickets(routeId, count);
     }
 
 }
