@@ -5,15 +5,12 @@ import com.denysenko.payment.service.PaymentStatusService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -25,8 +22,6 @@ public class PaymentController {
 
     private final PaymentService paymentService;
     private final PaymentStatusService paymentStatusService;
-
-    //private final CredentialsMapper mapper;
 
     @PostMapping("/payment")
     public Mono<UUID> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {

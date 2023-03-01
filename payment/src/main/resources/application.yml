@@ -1,18 +1,14 @@
 server:
   port: 8080
 
-
 logging:
-  file:
-    name:
-      /logs/app.log
   level:
     root: ERROR
     org.springframework.web: TRACE
     org.springframework.r2dbc: TRACE
     com.denysenko: DEBUG
-    io.r2dbc.postgresql.QUERY: DEBUG # for queries
-    io.r2dbc.postgresql.PARAM: DEBUG # for parameters
+    io.r2dbc.postgresql.QUERY: DEBUG
+    io.r2dbc.postgresql.PARAM: DEBUG
 #    io:
 #      r2dbc:
 #        postgresql: TRACE
@@ -28,13 +24,4 @@ spring:
       enabled: false
   mvc:
     log-request-details: true
-
-#  data:
-#    r2dbc:
-#      repositories:
-#        enabled: true
-
-#  datasource:
-#    hikari:
-#      connection-init-sql: SET TIME ZONE 'UTC'
 
