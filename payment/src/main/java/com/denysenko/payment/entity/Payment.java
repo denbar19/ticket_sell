@@ -15,7 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder(toBuilder = true)
+@Builder
 public class Payment {
 
     @Id

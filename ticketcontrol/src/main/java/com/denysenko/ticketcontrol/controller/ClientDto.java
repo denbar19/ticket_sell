@@ -1,30 +1,29 @@
 package com.denysenko.ticketcontrol.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.Builder;
+import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Data
-@Builder(toBuilder = true)
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@Builder
+@JsonSerialize
 public class ClientDto {
 
+    private UUID id;
     //@NotBlank
     //@Size(min = 2, max = 100)
-    @JsonProperty
+    //@JsonProperty
     private String firstName;
     //@NotBlank
     //@Size(min = 2, max = 100)
-    @JsonProperty
+    //@JsonProperty
     private String lastName;
     //@NotBlank
     //@Size(min = 2, max = 100)
-    @JsonProperty
+    //@JsonProperty
     private String middleName;
 
 }

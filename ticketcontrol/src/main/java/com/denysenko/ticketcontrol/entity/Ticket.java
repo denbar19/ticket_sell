@@ -1,31 +1,33 @@
 package com.denysenko.ticketcontrol.entity;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 
-@Entity
-@Table(name = "ticket")
+@Table(name = "ticket", schema = "ticket_sell")
 @Data
+@Builder
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private UUID id;
     @NotNull
     @Column(name = "client_id", nullable = false)
-    private Long clientId;
+    private UUID clientId;
     @NotNull
-    @Column(name = "route_id", nullable = false, unique = true)
-    private Long routeId;
+    @Column(name = "route_id", nullable = false)
+    private UUID routeId;
     @NotNull
-    @Column(name = "status", nullable = false)
-    private TicketStatus status;
+    @Column(name = "status", nullable = false, columnDefinition = "SMALLINT NOT NULL")
+    private short status;
     @Column(name = "payment_id")
-    private Long paymentId;
+    private UUID paymentId;
 
 }

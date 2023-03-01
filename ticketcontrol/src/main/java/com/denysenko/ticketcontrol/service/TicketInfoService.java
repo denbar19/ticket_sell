@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -31,7 +32,7 @@ public class TicketInfoService {
     }
 
     public List<Route> getFailedTicketsInfo() {
-        List<String> paymentIds = paymentResource.getFailedPaymentsIds();
+        List<UUID> paymentIds = paymentResource.getFailedPaymentsIds();
         List<String> routeIds = ticketControlService.getTicketsByPaymentIds(paymentIds)
                                                     .collectList()
                                                     .block()
@@ -42,7 +43,7 @@ public class TicketInfoService {
         return routeService.getRoutesById(routeIds).collectList().block();
     }
 
-    public TicketInfo getTicketInfo(String ticketId) {
+    public TicketInfo getTicketInfo(UUID ticketId) {
         return TicketInfo.builder()
                          .route(routeService.getRouteByTicketId(ticketId).block())
                          .paymentStatus(paymentResource.getPaymentStatus(ticketId))

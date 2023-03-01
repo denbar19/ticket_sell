@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -27,19 +28,14 @@ public class TicketsController {
 
 
     @PostMapping(path = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public TicketDto saveTicket(@Valid @RequestBody TicketDto ticket) {
+    public Mono<TicketDto> saveTicket(@Valid @RequestBody TicketDto ticket) {
         log.info("{}", ticket);
-        return mapper.toTicketDto(ticketService.saveTicket(ticket));
+        return ticketService.saveTicket(ticket)
+                            .map(mapper::toTicketDto);
     }
 
-    /*@PostMapping(path = "/ticket/1")
-    public int saveTicket1() {
-        log.info("{}", 1);
-        return 1;
-    }*/
-
     @GetMapping("/ticket/{id}")
-    public Mono<TicketDto> getTicketById(@PathVariable String id) {
+    public Mono<TicketDto> getTicketById(@Valid @PathVariable UUID id) {
         return ticketService.getTicketById(id)
                             .map(mapper::toTicketDto);
     }

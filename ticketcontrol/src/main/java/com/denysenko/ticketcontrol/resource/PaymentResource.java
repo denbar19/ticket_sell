@@ -11,6 +11,7 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +20,7 @@ public class PaymentResource {
     private static final MediaType JSON = MediaType.APPLICATION_JSON;
 
     // Uri Paths
+    private static final String SLASH = "/";
     private static final String PAYMENT = "/payment";
     private static final String STATUS = "/status";
     private static final String FAILED = "/failed";
@@ -32,7 +34,7 @@ public class PaymentResource {
     // Http async call
     private final WebClient webClient = WebClient.create("http://localhost:8080/payments");
 
-    public Mono<String> createPayment(ClientDto clientDto, float price) {
+    public Mono<UUID> createPayment(ClientDto clientDto, float price) {
         return webClient.post()
                         .uri(PAYMENT)
                         .accept(JSON)
@@ -42,16 +44,16 @@ public class PaymentResource {
                                           AMOUNT, price))
                         .exchangeToMono(res -> {
                             if (res.statusCode().equals(HttpStatus.OK)) {
-                                return res.bodyToMono(String.class);
+                                return res.bodyToMono(UUID.class);
                             } else {
                                 return res.createError();
                             }
                         });
     }
 
-    public PaymentStatus getPaymentStatus(String ticketId) {
+    public PaymentStatus getPaymentStatus(UUID ticketId) {
         return webClient.get()
-                        .uri(PAYMENT + STATUS + "/" + ticketId)
+                        .uri(PAYMENT + STATUS + SLASH + ticketId.toString())
                         .accept(JSON)
                         .exchangeToMono(res -> {
                             if (res.statusCode().equals(HttpStatus.OK)) {
@@ -66,12 +68,12 @@ public class PaymentResource {
 
     }
 
-    public List<String> getFailedPaymentsIds() {
+    public List<UUID> getFailedPaymentsIds() {
         return webClient.get()
                         .uri(FAILED)
                         .accept(JSON)
                         .retrieve()
-                        .bodyToFlux(String.class)
+                        .bodyToFlux(UUID.class)
                         .collectList()
                         .block();
     }

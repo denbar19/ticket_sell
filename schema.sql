@@ -6,7 +6,7 @@ SHOW TIMEZONE;
 
 CREATE TABLE IF NOT EXISTS client
 (
-    id          BIGSERIAL PRIMARY KEY,
+    id          uuid PRIMARY KEY,
     first_name  VARCHAR(50) NOT NULL,
     last_name   VARCHAR(50) NOT NULL,
     middle_name VARCHAR(50) NOT NULL
@@ -14,16 +14,16 @@ CREATE TABLE IF NOT EXISTS client
 
 CREATE TABLE IF NOT EXISTS ticket
 (
-    id         BIGSERIAL PRIMARY KEY,
-    client_id  BIGINT      NOT NULL,
-    route_id   DECIMAL     NOT NULL,
-    status     VARCHAR(50) NOT NULL,
-    payment_id BIGINT
+    id         uuid PRIMARY KEY,
+    client_id  uuid      NOT NULL,
+    route_id   uuid      NOT NULL,
+    status     SMALLINT NOT NULL,
+    payment_id uuid
 );
 
 CREATE TABLE IF NOT EXISTS route
 (
-    id                BIGSERIAL PRIMARY KEY,
+    id                uuid PRIMARY KEY,
     route_identity    VARCHAR(50) NOT NULL,
     departure_station VARCHAR(50) NOT NULL,
     departure_date    TIMESTAMP   NOT NULL,

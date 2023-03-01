@@ -1,27 +1,40 @@
 package com.denysenko.ticketcontrol.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@Entity
-@Table(name = "route")
+@Table(name = "route", schema = "ticket_sell")
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class Route {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private String id;
+    @NotNull
     @Column(name = "route_identity", nullable = false)
     private String identity;
+    @NotNull
     @Column(name = "departure_station", nullable = false)
     private String departureStation;
+    @NotNull
     @Column(name = "departure_date", nullable = false)
     private LocalDateTime departureDate;
+    @NotNull
     @Column(name = "price", nullable = false)
     private Long price;
+    @NotNull
     @Column(name = "available_seats", nullable = false)
     private Integer availableSeats;
 

@@ -9,6 +9,7 @@ import com.denysenko.ticketcontrol.entity.Ticket;
 import com.denysenko.ticketcontrol.mapper.mapstruct.ClientMapper;
 import com.denysenko.ticketcontrol.mapper.mapstruct.TicketMapper;
 import com.denysenko.ticketcontrol.resource.PaymentResource;
+import com.denysenko.ticketcontrol.resource.PaymentStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.denysenko.ticketcontrol.entity.TicketStatus.ACTIVE;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor = @__({@Autowired}))
@@ -32,46 +35,30 @@ public class TicketControlService {
     private final PaymentResource paymentResource;
     private final TicketRepository ticketRepository;
 
-    private final TicketMapper ticketMapper;
-    private final ClientMapper clientMapper;
+    public Mono<Ticket> saveTicket(TicketDto ticketDto) {
+        log.debug("TicketBuyService.saveTicket {}", ticketDto);
 
-    private final WebClient webClient = WebClient.create("http://localhost:8080/routes/route");
+        Ticket.TicketBuilder ticketBuilder = Ticket.builder()
+                                                   .id(UUID.randomUUID())
+                                                   .clientId(ticketDto.getClient().getId())
+                                                   .routeId(ticketDto.getRouteId())
+                                                   .status(ACTIVE.getStatusIndex());
 
-    public Ticket saveTicket(TicketDto ticket) {
-        log.debug("TicketBuyService.saveTicket {}", ticket);
-        /*if (!routeIsValid(ticket.getRouteId())) {
-            return Mono.empty();
-        }*/
-        /*if (!clientIsValid(clientMapper.toClient(ticket.getClient()))) {
-            return Mono.empty();
-        }*/
-        Mono<Ticket> ticketDb = ticketRepository.save(ticketMapper.toTicket(ticket));
-        Optional<Route> routeById = routeService.getRouteById(ticket.getRouteId());
-        routeService.reduceTickets(ticket.getRouteId(), 1);
-        String id = String.valueOf(ticketDb.block().getId());
-        if (Objects.isNull(paymentResource.createPayment(routeById.get().getPrice()))) {
-            log.warn("Payment was not created for ticket id: {}", id);
-        }
-        return ticketDb.block();
+        return routeService.getRouteById(ticketDto.getRouteId())
+                           .map(r -> paymentResource.createPayment(ticketDto.getClient(), r.getPrice()))
+                           .flatMap(mpid -> mpid.doOnNext(pid -> log.info("payment id: {}", pid))
+                                                .doOnNext(ticketBuilder::paymentId)
+                                                .then(routeService.reduceTickets(ticketDto.getRouteId(), 1))
+                                                .then(ticketRepository.save(ticketBuilder.build())));
+
     }
 
-    public UUID getTicket(Credentials userId, String routeId) {
-        return UUID.randomUUID();
-    }
-
-    public Mono<Ticket> getTicketById(String routeId) {
+    public Mono<Ticket> getTicketById(UUID routeId) {
         return ticketRepository.findById(routeId);
     }
 
-    public Flux<Ticket> getTicketsByPaymentIds(List<String> paymentIds) {
+    public Flux<Ticket> getTicketsByPaymentIds(List<UUID> paymentIds) {
         return ticketRepository.findAllById(paymentIds);
-    }
-
-    private boolean routeIsValid(String routeId) {
-        return routeService.getRouteById(routeId).isPresent();
-    }
-    private boolean clientIsValid(Client client) {
-        return clientService.getClientId(client).isPresent();
     }
 
 }

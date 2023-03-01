@@ -10,7 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -19,18 +19,18 @@ public class RouteService {
 
     private final RouteRepository routeRepository;
 
-    public Optional<Route> getRouteById(String id) {
-        return Optional.ofNullable(getRoutesById(List.of(id)).blockFirst());
+    public Mono<Route> getRouteById(UUID id) {
+        return routeRepository.findById(id.toString());
     }
     public Flux<Route> getRoutesById(List<String> routeIds) {
         return routeRepository.findAllById(routeIds);
     }
 
-    public Mono<Route> getRouteByTicketId(String routeId) {
-        return routeRepository.findById(routeId);
+    public Mono<Route> getRouteByTicketId(UUID routeId) {
+        return routeRepository.findById(routeId.toString());
     }
 
-    public Mono<Route> reduceTickets(String routeId, int count) {
+    public Mono<Route> reduceTickets(UUID routeId, int count) {
         return routeRepository.reduceTickets(routeId, count);
     }
 

@@ -2,9 +2,6 @@ server:
   port: 8081
 
 logging:
-  file:
-    name:
-      /logs/app.log
   level:
     root: ERROR
     org.springframework.web: TRACE
@@ -15,7 +12,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?schema=ticket_sell
+    url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?schema=ticket_sell?connectionTimeZone=UTC
     username: admin
     password: admin
     pool:

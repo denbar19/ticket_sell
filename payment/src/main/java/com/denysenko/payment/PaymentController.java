@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +34,7 @@ public class PaymentController {
     }
 
     @GetMapping("/payment/{paymentId}/status")
-    public Mono<String> getPaymentStatusByPaymentId(@NotNull @PathVariable UUID paymentId) {
+    public Mono<String> getPaymentStatusByPaymentId(@Valid @NotNull @PathVariable UUID paymentId) {
         return paymentStatusService.getPaymentStatus(paymentId)
                                    .map(PaymentStatus::toString);
     }
