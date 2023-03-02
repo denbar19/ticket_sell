@@ -17,6 +17,8 @@ because module com.denysenko.payment does not read unnamed module @0xc8c12ac
     --add-reads com.denysenko.ticketcontrol=ALL-UNNAMED
     --add-reads com.denysenko.payment=ALL-UNNAMED
 
+Docker images build. Run commands in each module root.
 
+    sh build.sh
 
 
