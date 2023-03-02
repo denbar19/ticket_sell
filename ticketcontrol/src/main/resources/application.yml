@@ -2,6 +2,7 @@ server:
   port: 8081
 
 logging:
+  file.name: ticketcontrol-debug.log
   level:
     root: ERROR
     org.springframework.web: DEBUG
