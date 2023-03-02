@@ -5,9 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -23,16 +24,14 @@ public class Payment {
     private UUID id;
     @Column(name = "amount", nullable = false)
     private Float amount;
-    @NotNull
+    @NonNull
     @Column(name = "status", nullable = false, columnDefinition = "SMALLINT NOT NULL")
-    private short status;
-    @NotNull
+    private Short status;
+    @NonNull
     @Column(name = "checked", nullable = false)
-    private boolean checked;
-    @NotNull
+    private Boolean checked;
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
-    @NotNull
     @Column(name = "updated_date", nullable = false)
     private LocalDateTime updatedDate;
 

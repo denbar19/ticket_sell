@@ -1,18 +1,18 @@
 package com.denysenko.payment;
 
 import com.denysenko.payment.entity.PaymentDto;
-import com.denysenko.payment.service.PaymentService;
 import com.denysenko.payment.entity.PaymentStatus;
+import com.denysenko.payment.service.PaymentService;
 import com.denysenko.payment.service.PaymentStatusService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,14 +27,14 @@ public class PaymentController {
     private final PaymentStatusService paymentStatusService;
 
     @PostMapping("/payment")
-    public Mono<UUID> createPayment(@NotNull @RequestBody Mono<PaymentDto> paymentDto) {
+    public Mono<UUID> createPayment(@NonNull @RequestBody Mono<PaymentDto> paymentDto) {
         return paymentDto.flatMap(paymentService::createPayment)
-                         .doOnNext(p -> log.info("createPayment: {}", p))
+                         .doOnNext(p -> log.debug("createPayment: {}", p))
                          .flatMap(p -> Mono.justOrEmpty(p.getId()));
     }
 
     @GetMapping("/payment/{paymentId}/status")
-    public Mono<String> getPaymentStatusByPaymentId(@Valid @NotNull @PathVariable UUID paymentId) {
+    public Mono<String> getPaymentStatusByPaymentId(@Valid @NonNull @PathVariable UUID paymentId) {
         return paymentStatusService.getPaymentStatus(paymentId)
                                    .map(PaymentStatus::toString);
     }

@@ -1,6 +1,7 @@
 package com.denysenko.ticketcontrol.resource;
 
 import com.denysenko.ticketcontrol.controller.dto.ClientDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class PaymentResource {
 
@@ -33,6 +35,7 @@ public class PaymentResource {
     private final WebClient webClient = WebClient.create(PAYMENT_SERVICE_HOST);
 
     public Mono<UUID> createPayment(ClientDto clientDto, float price) {
+        log.debug("create payment price: {}, {}", price, clientDto);
         return webClient.post()
                         .uri(PAYMENT)
                         .accept(JSON)
