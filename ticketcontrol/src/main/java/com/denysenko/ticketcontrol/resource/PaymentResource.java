@@ -17,6 +17,7 @@ public class PaymentResource {
     private static final MediaType JSON = MediaType.APPLICATION_JSON;
 
     // Uri Paths
+    private static final String PAYMENT_SERVICE_HOST = "http://localhost:8080/payments";
     private static final String SLASH = "/";
     private static final String PAYMENT = "/payment";
     private static final String STATUS = "/status";
@@ -29,8 +30,7 @@ public class PaymentResource {
     private static final String MIDDLE_NAME = "middleName";
     private static final String AMOUNT = "amount";
 
-    // Http async call
-    private final WebClient webClient = WebClient.create("http://localhost:8080/payments");
+    private final WebClient webClient = WebClient.create(PAYMENT_SERVICE_HOST);
 
     public Mono<UUID> createPayment(ClientDto clientDto, float price) {
         return webClient.post()
@@ -63,7 +63,12 @@ public class PaymentResource {
     }
 
     public List<UUID> getNewPaymentsIds() {
-        return webClient.get().uri(STATUS + NEW).retrieve().bodyToFlux(UUID.class).collectList().block();
+        return webClient.get()
+                        .uri(STATUS + NEW)
+                        .retrieve()
+                        .bodyToFlux(UUID.class)
+                        .collectList()
+                        .block();
     }
 
     public List<UUID> getFailedPaymentsIds() {
