@@ -26,9 +26,7 @@ class PaymentRepositoryTest {
 
     @Test
     void getPaymentStatus() {
-        UUID uuid = UUID.randomUUID();
         Mono<Payment> save = this.paymentRepository.save(Payment.builder()
-                                                                .id(uuid)
                                                                 .amount(0.0F)
                                                                 .status(PaymentStatus.NEW.getStatusIndex())
                                                                 .checked(false)
@@ -36,7 +34,7 @@ class PaymentRepositoryTest {
                                                                 .createdDate(LocalDateTime.now())
                                                                 .build());
 
-        this.paymentRepository.getPaymentStatus(uuid);
+        this.paymentRepository.getPaymentStatus(save.block().getId());
         StepVerifier.create(save)
                     .expectNextCount(1)
                     .verifyComplete();

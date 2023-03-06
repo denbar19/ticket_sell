@@ -34,7 +34,6 @@ public class PaymentService {
 
         var random = new Random();
         Payment payment = Payment.builder()
-                                 .id(UUID.randomUUID())
                                  .amount(paymentDto.getAmount())
                                  // set random status to return random by task description
                                  .status((short) random.nextInt(PaymentStatus.values().length))

@@ -1,38 +1,39 @@
 package com.denysenko.payment.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.lang.NonNull;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name = "payment", schema = "ticket_sell")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "payment", schema = "public")
 @Data
 @Builder
-public class Payment {
+public class Payment implements Persistable<UUID> {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column("id")
     private UUID id;
-    @Column(name = "amount", nullable = false)
+    @Column("amount")
     private Float amount;
     @NonNull
-    @Column(name = "status", nullable = false, columnDefinition = "SMALLINT NOT NULL")
+    @Column("status")
     private Short status;
     @NonNull
-    @Column(name = "checked", nullable = false)
+    @Column("checked")
     private Boolean checked;
-    @Column(name = "created_date", nullable = false)
+    @Column("created_date")
     private LocalDateTime createdDate;
-    @Column(name = "updated_date", nullable = false)
+    @Column("updated_date")
     private LocalDateTime updatedDate;
 
+    @Override
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

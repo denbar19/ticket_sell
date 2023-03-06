@@ -10,11 +10,11 @@ import reactor.core.publisher.Mono;
 import java.util.UUID;
 
 @Repository
-public interface PaymentRepository extends R2dbcRepository<Payment, String> {
+public interface PaymentRepository extends R2dbcRepository<Payment, UUID> {
 
     @Query("SELECT status FROM payment WHERE id = :paymentId")
     Mono<Short> getPaymentStatus(UUID paymentId);
 
     @Query("SELECT id FROM payment WHERE status = :status AND checked = :checked")
-    Flux<String> getPaymentIdsByStatus(short status, boolean checked);
+    Flux<String> getPaymentIdsByStatus(Short status, Boolean checked);
 }

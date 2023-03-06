@@ -14,5 +14,5 @@ public class PaymentDto {
     private String middleName;
     @JsonFormat(shape = JsonFormat.Shape.NUMBER_FLOAT)
     @JsonProperty
-    private float amount;
+    private Float amount;
 }
