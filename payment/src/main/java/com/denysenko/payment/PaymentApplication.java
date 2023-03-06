@@ -37,7 +37,6 @@ public class PaymentApplication {
                                                      .password("admin")
                                                      .host("localhost")
                                                      .port(15432)
-                                                     .database("ticket_sell")
                                                      .schema("public")
                                                      .build();
 
