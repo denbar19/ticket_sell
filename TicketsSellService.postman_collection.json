@@ -149,7 +149,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"routeId\": \"67e2d854-b82c-11ed-afa1-0242ac120002\",\n    \"client\": {\n        \"id\": \"67e2d44e-b82c-11ed-afa1-0242ac120002\",\n        \"firstName\": \"Станіслав\",\n        \"lastName\": \"Дениcенко\",\n        \"middleName\": \"Дмитрович\"\n    }\n}",
+					"raw": "{\n    \"routeId\": \"{{routeId}}\",\n    \"client\": {\n        \"id\": \"{{clientId}}\",\n        \"firstName\": \"Станіслав\",\n        \"lastName\": \"Дениcенко\",\n        \"middleName\": \"Дмитрович\"\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
