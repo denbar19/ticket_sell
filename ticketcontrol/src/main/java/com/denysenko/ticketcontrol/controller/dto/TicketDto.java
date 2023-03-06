@@ -1,25 +1,23 @@
 package com.denysenko.ticketcontrol.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
 @Builder
-@JsonSerialize
 public class TicketDto {
 
     @NotBlank
-    //@JsonProperty
+    @JsonProperty
     private UUID routeId;
-    @NotNull
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-    //@JsonInclude(value = JsonInclude.Include.NON_EMPTY, content = JsonInclude.Include.NON_NULL)
-    //@JsonProperty
+    @JsonProperty
     private ClientDto client;
 
 }
