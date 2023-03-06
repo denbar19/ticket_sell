@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS ticket
 
 CREATE TABLE IF NOT EXISTS route
 (
-    id                uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    id                uuid DEFAULT gen_random_uuid() PRIMARY KEY,
     route_identity    VARCHAR(50) NOT NULL,
     departure_station VARCHAR(50) NOT NULL,
     departure_date    TIMESTAMP   NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS route
 
 CREATE TABLE IF NOT EXISTS payment
 (
-    id           uuid PRIMARY KEY,
+    id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
     amount       float          NOT NULL,
     status       SMALLINT NOT NULL,
     checked      BOOLEAN        NOT NULL DEFAULT false,
@@ -43,6 +43,9 @@ CREATE TABLE IF NOT EXISTS payment
 
 UPDATE route r SET available_seats = (SELECT available_seats FROM route WHERE id = '1') - 1
     WHERE r.id = '1';
+UPDATE route r SET available_seats = (SELECT available_seats FROM route WHERE id = '8d636348-543f-488d-bd99-4b2f5a64eced') - '1'
+    WHERE r.id = '8d636348-543f-488d-bd99-4b2f5a64eced';
+
 
 SELECT status FROM payment WHERE id = '1';
 
