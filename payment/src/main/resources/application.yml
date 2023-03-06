@@ -21,8 +21,6 @@ spring:
     url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?currentSchema=public,connectionTimeZone=UTC
     username: admin
     password: admin
-    properties:
-      schema: public
     pool:
       enabled: false
   mvc:

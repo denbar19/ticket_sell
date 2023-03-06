@@ -10,9 +10,9 @@ import java.util.UUID;
 
 public interface PaymentRepository extends R2dbcRepository<Payment, UUID> {
 
-    @Query("SELECT status FROM public.payment WHERE id = :paymentId")
+    @Query("SELECT status FROM payment WHERE id = :paymentId")
     Mono<Short> getPaymentStatus(UUID paymentId);
 
-    @Query("SELECT id FROM public.payment WHERE status = :status AND checked = :checked")
+    @Query("SELECT id FROM payment WHERE status = :status AND checked = :checked")
     Flux<String> getPaymentIdsByStatus(Short status, Boolean checked);
 }

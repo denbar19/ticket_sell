@@ -1,8 +1,14 @@
 package com.denysenko.payment;
 
+import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
+import io.r2dbc.postgresql.PostgresqlConnectionFactory;
+import io.r2dbc.spi.ConnectionFactories;
+import io.r2dbc.spi.ConnectionFactory;
+import io.r2dbc.spi.ConnectionFactoryOptions;
 import jakarta.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 import java.util.TimeZone;
@@ -21,4 +27,21 @@ public class PaymentApplication {
     public void init(){
         TimeZone.setDefault(TimeZone.getTimeZone(UTC));
     }
+
+    @Bean
+    public ConnectionFactory connectionFactory() {
+            PostgresqlConnectionConfiguration config =
+                    PostgresqlConnectionConfiguration.builder()
+                                                     .database("ticket_sell")
+                                                     .username("admin")
+                                                     .password("admin")
+                                                     .host("localhost")
+                                                     .port(15432)
+                                                     .database("ticket_sell")
+                                                     .schema("public")
+                                                     .build();
+
+            return new PostgresqlConnectionFactory(config);
+    }
+
 }
