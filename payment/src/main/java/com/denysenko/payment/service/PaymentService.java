@@ -44,6 +44,10 @@ public class PaymentService {
         return paymentRepository.save(payment);
     }
 
+    public Mono<Payment> getPaymentById(UUID paymentId) {
+        return paymentRepository.findById(paymentId);
+    }
+
     public Flux<String> getNewPaymentsIds() {
         return paymentRepository.getPaymentIdsByStatus(NEW.getStatusIndex(), UNCHECKED);
     }

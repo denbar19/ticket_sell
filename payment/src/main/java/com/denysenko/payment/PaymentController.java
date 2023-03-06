@@ -26,11 +26,19 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final PaymentStatusService paymentStatusService;
 
+    private final PaymentMapper mapper;
+
     @PostMapping("/payment")
-    public Mono<UUID> createPayment(@NonNull @RequestBody Mono<PaymentDto> paymentDto) {
-        return paymentDto.flatMap(paymentService::createPayment)
-                         .doOnNext(p -> log.debug("createPayment: {}", p))
-                         .flatMap(p -> Mono.justOrEmpty(p.getId()));
+    public Mono<UUID> createPayment(@Valid @NonNull @RequestBody PaymentDto paymentDto) {
+        return paymentService.createPayment(paymentDto)
+                             .doOnNext(p -> log.debug("createPayment: {}", p))
+                             .flatMap(p -> Mono.justOrEmpty(p.getId()));
+    }
+
+    @GetMapping("/payment/{paymentId}")
+    public Mono<PaymentDto> getPayment(@Valid @NonNull @PathVariable UUID paymentId) {
+        return paymentService.getPaymentById(paymentId)
+                             .map(mapper::toPaymentDto);
     }
 
     @GetMapping("/payment/{paymentId}/status")

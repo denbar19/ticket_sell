@@ -12,15 +12,17 @@ logging:
     io.r2dbc.postgresql.PARAM: DEBUG
 #    io:
 #      r2dbc:
-#        postgresql: TRACE
+#        postgresql: DEBUG
 
 spring:
   main:
     allow-bean-definition-overriding: true
   r2dbc:
-    url: r2dbc:postgresql://localhost:15432/ticket_sell?schema=public?connectionTimeZone=UTC
+    url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?currentSchema=public,connectionTimeZone=UTC
     username: admin
     password: admin
+    properties:
+      schema: public
     pool:
       enabled: false
   mvc:
