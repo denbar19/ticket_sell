@@ -5,6 +5,7 @@ import com.denysenko.ticketcontrol.repository.RouteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -35,8 +36,9 @@ public class RouteService {
         return routeRepository.findById(routeId);
     }
 
-    public Mono<Route> reduceTickets(UUID routeId, int count) {
-        return routeRepository.reduceTickets(routeId, count);
+    public Mono<Route> reduceTickets(UUID routeId, Integer count) {
+        return routeRepository.reduceTickets(routeId, count)
+                              .then(routeRepository.findById(routeId));
     }
 
 }

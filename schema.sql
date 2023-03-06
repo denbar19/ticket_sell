@@ -43,9 +43,13 @@ CREATE TABLE IF NOT EXISTS payment
 
 UPDATE route r SET available_seats = (SELECT available_seats FROM route WHERE id = '1') - 1
     WHERE r.id = '1';
-UPDATE route r SET available_seats = (SELECT available_seats FROM route WHERE id = '8d636348-543f-488d-bd99-4b2f5a64eced') - '1'
-    WHERE r.id = '8d636348-543f-488d-bd99-4b2f5a64eced';
+UPDATE route  SET available_seats = (SELECT available_seats FROM route WHERE id = '8d636348-543f-488d-bd99-4b2f5a64eced') - '1'
+    WHERE id = '8d636348-543f-488d-bd99-4b2f5a64eced';
+UPDATE route r SET available_seats = (SELECT available_seats FROM route WHERE id = 'e6053bf4-a8e9-4636-bf67-f2a492081f82') - '1'
+    WHERE r.id = 'e6053bf4-a8e9-4636-bf67-f2a492081f82';
 
+UPDATE route r SET available_seats = available_seats + 1
+     WHERE r.id = 'e6053bf4-a8e9-4636-bf67-f2a492081f82';
 
 SELECT status FROM payment WHERE id = '1';
 
@@ -73,3 +77,5 @@ SELECT pg_type.oid, typarray, typname, typcategory
             ON sp.nspoid = typnamespace
     WHERE typname IN ('payment_status', 'ticket_status')
     ORDER BY sp.r, pg_type.oid DESC ;
+
+SELECT oid, typname FROM pg_catalog.pg_type WHERE typname IN ('hstore','geometry');

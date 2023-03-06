@@ -29,7 +29,7 @@ public class RouteController {
     public Mono<RouteDto> saveRoute(@Valid @RequestBody RouteDto route) {
         log.debug("{}", route);
         return routeService.saveRoute(mapper.toRoute(route))
-                            .map(mapper::toRouteDto);
+                           .map(mapper::toRouteDto);
     }
 
     @GetMapping(path = "/route/{routeId}")
@@ -37,4 +37,12 @@ public class RouteController {
         return routeService.getRouteById(routeId)
                            .map(mapper::toRouteDto);
     }
+
+    @PatchMapping(path = "/route/{routeId}/{quantity}")
+    public Mono<RouteDto> reduceTickets(@Valid @NonNull @PathVariable UUID routeId,
+                                        @Valid @PathVariable Integer quantity) {
+        return routeService.reduceTickets(routeId, quantity)
+                           .map(mapper::toRouteDto);
+    }
+
 }
