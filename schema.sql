@@ -6,7 +6,7 @@ SHOW TIMEZONE;
 
 CREATE TABLE IF NOT EXISTS client
 (
-    id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+    id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     first_name  VARCHAR(50) NOT NULL,
     last_name   VARCHAR(50) NOT NULL,
     middle_name VARCHAR(50) NOT NULL
@@ -14,16 +14,16 @@ CREATE TABLE IF NOT EXISTS client
 
 CREATE TABLE IF NOT EXISTS ticket
 (
-    id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-    client_id  uuid      NOT NULL,
-    route_id   uuid      NOT NULL,
+    id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    client_id  UUID      NOT NULL,
+    route_id   UUID      NOT NULL,
     status     SMALLINT NOT NULL,
-    payment_id uuid
+    payment_id UUID
 );
 
 CREATE TABLE IF NOT EXISTS route
 (
-    id                uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+    id                UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     route_identity    VARCHAR(50) NOT NULL,
     departure_station VARCHAR(50) NOT NULL,
     departure_date    TIMESTAMP   NOT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS route
 
 CREATE TABLE IF NOT EXISTS payment
 (
-    id           uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-    amount       float          NOT NULL,
+    id           UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    amount       FLOAT          NOT NULL,
     status       SMALLINT NOT NULL,
     checked      BOOLEAN        NOT NULL DEFAULT false,
     created_date TIMESTAMP      NOT NULL DEFAULT current_timestamp,
