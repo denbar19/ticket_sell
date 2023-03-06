@@ -35,12 +35,12 @@ public class TicketControlService {
                                                    .status(ACTIVE.getStatusIndex());
 
         return routeService.getRouteById(ticketDto.getRouteId())
-                           .map(r -> paymentResource.createPayment(ticketDto.getClient(), r.getPrice()))
-                           .flatMap(mpid -> mpid.doOnNext(pid -> log.debug("payment id: {}", pid))
-                                                .doOnNext(ticketBuilder::paymentId)
-                                                .then(routeService.reduceTickets(ticketDto.getRouteId(), 1))
-                                                .then(ticketRepository.save(ticketBuilder.build())));
-
+                           .flatMap(r -> paymentResource.createPayment(ticketDto.getClient(), r.getPrice()))
+                           .doOnNext(pid -> log.debug("payment id: {}", pid))
+                           .map(ticketBuilder::paymentId)
+                           .doOnNext(pid -> log.debug("ticket to save: {}", ticketBuilder.build()))
+                           .then(routeService.reduceTickets(ticketDto.getRouteId(), 1))
+                           .flatMap(pid -> ticketRepository.save(ticketBuilder.build()));
     }
 
     public Mono<Ticket> getTicketById(UUID routeId) {

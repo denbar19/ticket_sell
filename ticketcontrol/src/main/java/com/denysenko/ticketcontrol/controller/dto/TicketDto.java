@@ -12,6 +12,8 @@ import java.util.UUID;
 @Builder
 public class TicketDto {
 
+    @JsonProperty
+    private UUID id;
     @NotBlank
     @JsonProperty
     private UUID routeId;

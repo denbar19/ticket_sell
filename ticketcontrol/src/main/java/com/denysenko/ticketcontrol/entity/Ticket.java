@@ -16,6 +16,7 @@ import java.util.UUID;
 public class Ticket implements Persistable<UUID> {
 
     @Id
+    //@Column("id")
     private UUID id;
     @Column("client_id")
     private UUID clientId;
