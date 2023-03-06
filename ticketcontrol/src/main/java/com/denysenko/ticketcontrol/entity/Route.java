@@ -5,36 +5,39 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.lang.NonNull;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name = "route", schema = "ticket_sell")
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "route", schema = "public")
 @Data
-@Builder(toBuilder = true)
-public class Route {
+public class Route implements Persistable<UUID> {
 
     @Id
+    @Column("id")
     private UUID id;
-    @NotNull
+    @NonNull
     @Column("route_identity")
     private String identity;
-    @NotNull
+    @NonNull
     @Column("departure_station")
     private String departureStation;
-    @NotNull
+    @NonNull
     @Column("departure_date")
     private LocalDateTime departureDate;
-    @NotNull
+    @NonNull
     @Column("price")
     private Long price;
-    @NotNull
+    @NonNull
     @Column("available_seats")
     private Integer availableSeats;
 
+    @Override
+    public boolean isNew() {
+        return this.id == null;
+    }
 }

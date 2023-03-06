@@ -5,6 +5,7 @@ import com.denysenko.ticketcontrol.entity.Ticket;
 import com.denysenko.ticketcontrol.entity.TicketInfo;
 import com.denysenko.ticketcontrol.resource.PaymentResource;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor = @__({@Autowired}))
 public class TicketInfoService {
@@ -29,7 +31,7 @@ public class TicketInfoService {
                                                  stream()
                                                  .map(UUID::toString)
                                                  .collect(Collectors.toList());
-
+        log.debug("new paymentsIds: {}", paymentIds);
         List<Ticket> tickets = Optional.ofNullable(ticketControlService.getTicketsByPaymentIds(paymentIds)
                                                                        .collectList()
                                                                        .block())
@@ -61,7 +63,7 @@ public class TicketInfoService {
         List<String> paymentIds = paymentResource.getFailedPaymentsIds().stream()
                                                .map(UUID::toString)
                                                .collect(Collectors.toList());
-
+        log.debug("failed paymentsIds: {}", paymentIds);
         List<Ticket> tickets = Optional.ofNullable(ticketControlService.getTicketsByPaymentIds(paymentIds)
                                                                        .collectList()
                                                                        .block())

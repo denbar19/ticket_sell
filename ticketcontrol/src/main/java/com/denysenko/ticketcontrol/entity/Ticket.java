@@ -7,26 +7,22 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 
-@Table(name = "ticket", schema = "ticket_sell")
+@Table(name = "ticket", schema = "public")
 @Data
 @Builder
 public class Ticket implements Persistable<UUID> {
 
     @Id
     private UUID id;
-    @NotNull
     @Column("client_id")
     private UUID clientId;
-    @NotNull
     @Column("route_id")
     private UUID routeId;
-    @NotNull
     @Column("status")
-    private short status;
+    private Short status;
     @Column("payment_id")
     private UUID paymentId;
 

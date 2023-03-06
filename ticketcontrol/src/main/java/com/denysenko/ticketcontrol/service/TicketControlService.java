@@ -30,7 +30,7 @@ public class TicketControlService {
     private final ClientMapper clientMapper;
 
     public Mono<Ticket> saveTicket(TicketDto ticketDto) {
-        log.debug("TicketBuyService.saveTicket {}", ticketDto);
+        log.debug("saveTicket {}", ticketDto);
 
         Ticket.TicketBuilder ticketBuilder = Ticket.builder()
                                                    //.id(UUID.randomUUID())
@@ -40,7 +40,7 @@ public class TicketControlService {
 
         return routeService.getRouteById(ticketDto.getRouteId())
                            .map(r -> paymentResource.createPayment(ticketDto.getClient(), r.getPrice()))
-                           .flatMap(mpid -> mpid.doOnNext(pid -> log.info("payment id: {}", pid))
+                           .flatMap(mpid -> mpid.doOnNext(pid -> log.debug("payment id: {}", pid))
                                                 .doOnNext(ticketBuilder::paymentId)
                                                 .then(routeService.reduceTickets(ticketDto.getRouteId(), 1))
                                                 .then(ticketRepository.save(ticketBuilder.build())));

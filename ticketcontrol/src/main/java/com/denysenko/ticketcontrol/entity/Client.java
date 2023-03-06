@@ -6,22 +6,22 @@ import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import javax.validation.constraints.NotNull;
+import org.springframework.lang.NonNull;
 import java.util.UUID;
 
-@Table(name = "client", schema = "ticket_sell")
+@Table(name = "client", schema = "public")
 @Data
 public class Client implements Persistable<UUID> {
 
     @Id
     private UUID id;
-    @NotNull
+    @NonNull
     @Column("first_name")
     private String firstName;
-    @NotNull
+    @NonNull
     @Column("last_name")
     private String lastName;
-    @NotNull
+    @NonNull
     @Column("middle_name")
     private String middleName;
 
