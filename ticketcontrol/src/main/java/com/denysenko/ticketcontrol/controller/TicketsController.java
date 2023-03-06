@@ -23,7 +23,6 @@ import java.util.UUID;
 public class TicketsController {
 
     private final TicketControlService ticketService;
-
     private final TicketMapper mapper;
 
     @PostMapping(path = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)

@@ -1,9 +1,9 @@
 package com.denysenko.ticketcontrol.service;
 
-import com.denysenko.ticketcontrol.mapper.mapstruct.ClientMapper;
-import com.denysenko.ticketcontrol.repository.TicketRepository;
 import com.denysenko.ticketcontrol.controller.dto.TicketDto;
 import com.denysenko.ticketcontrol.entity.Ticket;
+import com.denysenko.ticketcontrol.mapper.mapstruct.ClientMapper;
+import com.denysenko.ticketcontrol.repository.TicketRepository;
 import com.denysenko.ticketcontrol.resource.PaymentResource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +23,8 @@ import static com.denysenko.ticketcontrol.entity.TicketStatus.ACTIVE;
 public class TicketControlService {
 
     private final RouteService routeService;
-    private final ClientService clientService;
     private final PaymentResource paymentResource;
     private final TicketRepository ticketRepository;
-
-    private final ClientMapper clientMapper;
 
     public Mono<Ticket> saveTicket(TicketDto ticketDto) {
         log.debug("saveTicket {}", ticketDto);
