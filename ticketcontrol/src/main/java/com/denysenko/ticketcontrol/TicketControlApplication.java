@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.util.TimeZone;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 @EnableR2dbcRepositories
 public class TicketControlApplication {
 
