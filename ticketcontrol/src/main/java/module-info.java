@@ -19,5 +19,4 @@ module ticketcontrol {
     requires org.slf4j;
     requires java.validation;
     requires spring.r2dbc;
-    requires jakarta.annotation;
 }
