@@ -7,6 +7,7 @@ module ticketcontrol {
     requires spring.web;
     requires spring.data.commons;
     requires spring.data.r2dbc;
+    requires spring.r2dbc;
     requires spring.data.relational;
     requires spring.webflux;
     requires reactor.core;
@@ -17,6 +18,5 @@ module ticketcontrol {
     requires lombok;
     requires org.mapstruct;
     requires org.slf4j;
-    requires java.validation;
-    requires spring.r2dbc;
+    requires jakarta.validation;
 }
