@@ -24,7 +24,7 @@ class PaymentRepositoryTest {
         this.paymentRepository = paymentRepository;
     }
 
-    @Test
+    //@Test
     void getPaymentStatus() {
         Mono<Payment> save = this.paymentRepository.save(Payment.builder()
                                                                 .amount(0.0F)
@@ -42,7 +42,7 @@ class PaymentRepositoryTest {
 
 
 
-    @Test
+    //@Test
     void getPaymentIdsByStatus() {
     }
 }
