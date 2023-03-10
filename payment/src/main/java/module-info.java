@@ -16,7 +16,7 @@ module com.denysenko.payment {
     requires org.mapstruct;
     requires org.slf4j;
 
-    requires java.validation;
+    //requires java.validation;
     requires r2dbc.postgresql;
     requires r2dbc.spi;
     requires jakarta.annotation;

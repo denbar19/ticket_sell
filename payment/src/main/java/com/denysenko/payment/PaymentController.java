@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,20 +29,20 @@ public class PaymentController {
     private final PaymentMapper mapper;
 
     @PostMapping("/payment")
-    public Mono<UUID> createPayment(@Valid @NonNull @RequestBody PaymentDto paymentDto) {
+    public Mono<UUID> createPayment(@Validated @NonNull @RequestBody PaymentDto paymentDto) {
         return paymentService.createPayment(paymentDto)
                              .doOnNext(p -> log.debug("createPayment: {}", p))
                              .flatMap(p -> Mono.justOrEmpty(p.getId()));
     }
 
     @GetMapping("/payment/{paymentId}")
-    public Mono<PaymentDto> getPayment(@Valid @NonNull @PathVariable UUID paymentId) {
+    public Mono<PaymentDto> getPayment(@Validated @NonNull @PathVariable UUID paymentId) {
         return paymentService.getPaymentById(paymentId)
                              .map(mapper::toPaymentDto);
     }
 
     @GetMapping("/payment/{paymentId}/status")
-    public Mono<String> getPaymentStatusByPaymentId(@Valid @NonNull @PathVariable UUID paymentId) {
+    public Mono<String> getPaymentStatusByPaymentId(@Validated @NonNull @PathVariable UUID paymentId) {
         return paymentStatusService.getPaymentStatus(paymentId)
                                    .map(PaymentStatus::toString);
     }
