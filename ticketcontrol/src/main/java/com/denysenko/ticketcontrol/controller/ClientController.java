@@ -9,10 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-import javax.validation.Valid;
 import org.springframework.lang.NonNull;
 import java.util.UUID;
 
@@ -27,13 +27,13 @@ public class ClientController {
     private final ClientMapper clientMapper;
 
     @PostMapping(value = "/client", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ClientDto> createClient(@Valid @NonNull @RequestBody ClientDto client) {
+    public Mono<ClientDto> createClient(@Validated @NonNull @RequestBody ClientDto client) {
         return clientService.createClient(clientMapper.toClient(client))
                             .map(clientMapper::toClientDto);
     }
 
     @GetMapping("/client/{clientId}")
-    public Mono<ClientDto> getClientById(@Valid @NonNull @PathVariable UUID clientId) {
+    public Mono<ClientDto> getClientById(@Validated @NonNull @PathVariable UUID clientId) {
         return clientService.getClientById(clientId)
                             .map(clientMapper::toClientDto);
     }
