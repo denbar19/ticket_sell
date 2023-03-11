@@ -2,9 +2,11 @@ package com.denysenko.payment.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class PaymentDto {
     @JsonProperty
     private String firstName;

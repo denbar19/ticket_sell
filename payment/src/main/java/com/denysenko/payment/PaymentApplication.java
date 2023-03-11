@@ -16,6 +16,7 @@ import java.util.TimeZone;
 public class PaymentApplication implements InitializingBean {
 
     private static final String UTC = "UTC";
+
     public static void main(String[] args) {
         SpringApplication.run(PaymentApplication.class, args);
     }
@@ -28,17 +29,17 @@ public class PaymentApplication implements InitializingBean {
 
     @Bean
     public ConnectionFactory connectionFactory() {
-            PostgresqlConnectionConfiguration config =
-                    PostgresqlConnectionConfiguration.builder()
-                                                     .database("ticket_sell")
-                                                     .username("admin")
-                                                     .password("admin")
-                                                     .host("localhost")
-                                                     .port(15432)
-                                                     .schema("public")
-                                                     .build();
+        PostgresqlConnectionConfiguration config =
+                PostgresqlConnectionConfiguration.builder()
+                                                 .database("ticket_sell")
+                                                 .username("admin")
+                                                 .password("admin")
+                                                 .host("localhost")
+                                                 .port(15432)
+                                                 .schema("public")
+                                                 .build();
 
-            return new PostgresqlConnectionFactory(config);
+        return new PostgresqlConnectionFactory(config);
     }
 
 }

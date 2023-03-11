@@ -16,11 +16,12 @@ module com.denysenko.payment {
     requires lombok;
     requires org.mapstruct;
     requires org.slf4j;
-    //requires spring.boot.devtools;
+    requires java.sql;
 
     exports com.denysenko.payment;
     exports com.denysenko.payment.service to spring.beans;
+    exports com.denysenko.payment.entity to spring.data.commons;
 
     opens com.denysenko.payment to spring.core;
-    opens com.denysenko.payment.entity to spring.core;
+    opens com.denysenko.payment.entity to spring.core, com.fasterxml.jackson.databind;
 }
