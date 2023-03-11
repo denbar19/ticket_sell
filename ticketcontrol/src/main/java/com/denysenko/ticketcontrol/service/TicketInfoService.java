@@ -27,10 +27,8 @@ public class TicketInfoService {
     // tickets by routes
     public Map<Route, List<Ticket>> getNewTicketsInfo() {
         // check all NEW payments, get tickets by payment.ids
-        List<String> paymentIds = paymentResource.getNewPaymentsIds().
-                                                 stream()
-                                                 .map(UUID::toString)
-                                                 .collect(Collectors.toList());
+        List<UUID> paymentIds = new ArrayList<>(paymentResource.getNewPaymentsIds());
+
         log.debug("new paymentsIds: {}", paymentIds);
         List<Ticket> tickets = Optional.ofNullable(ticketControlService.getTicketsByPaymentIds(paymentIds)
                                                                        .collectList()
@@ -60,9 +58,8 @@ public class TicketInfoService {
 
     // list of routes to present them routeIdentity: availableSeats
     public List<Route> getFailedTicketsInfo() {
-        List<String> paymentIds = paymentResource.getFailedPaymentsIds().stream()
-                                               .map(UUID::toString)
-                                               .collect(Collectors.toList());
+        List<UUID> paymentIds = new ArrayList<>(paymentResource.getFailedPaymentsIds());
+
         log.debug("failed paymentsIds: {}", paymentIds);
         List<Ticket> tickets = Optional.ofNullable(ticketControlService.getTicketsByPaymentIds(paymentIds)
                                                                        .collectList()
