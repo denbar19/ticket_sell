@@ -19,4 +19,16 @@ module ticketcontrol {
     requires org.mapstruct;
     requires org.slf4j;
     requires jakarta.validation;
+    requires java.sql;
+
+    exports com.denysenko.ticketcontrol;
+    exports com.denysenko.ticketcontrol.controller to spring.beans, spring.webflux;
+    exports com.denysenko.ticketcontrol.entity to spring.beans, spring.data.commons;
+    exports com.denysenko.ticketcontrol.mapper.mapstruct to spring.beans;
+    exports com.denysenko.ticketcontrol.resource to spring.beans;
+    exports com.denysenko.ticketcontrol.service to spring.beans;
+
+    opens com.denysenko.ticketcontrol;
+    opens com.denysenko.ticketcontrol.entity to spring.core;
+    opens com.denysenko.ticketcontrol.controller.dto to com.fasterxml.jackson.databind;
 }
