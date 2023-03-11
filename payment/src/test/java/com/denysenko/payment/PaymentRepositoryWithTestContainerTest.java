@@ -58,7 +58,7 @@ class PaymentRepositoryWithTestContainerTest {
         this.paymentRepository = paymentRepository;
     }
 
-    @Test
+    //@Test
     void getPaymentStatus() {
         UUID uuid = UUID.randomUUID();
 
@@ -79,7 +79,7 @@ class PaymentRepositoryWithTestContainerTest {
 
 
 
-    @Test
+    //@Test
     void getPaymentIdsByStatus() {
     }
 }

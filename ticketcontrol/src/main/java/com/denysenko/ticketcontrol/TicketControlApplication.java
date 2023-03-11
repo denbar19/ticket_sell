@@ -1,9 +1,9 @@
 package com.denysenko.ticketcontrol;
 
 import io.r2dbc.spi.ConnectionFactory;
-import jakarta.annotation.PostConstruct;
 import io.r2dbc.postgresql.PostgresqlConnectionConfiguration;
 import io.r2dbc.postgresql.PostgresqlConnectionFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +13,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import java.util.TimeZone;
 
 @SpringBootApplication
-//@EnableScheduling
+@EnableScheduling
 @EnableR2dbcRepositories
-public class TicketControlApplication {
+public class TicketControlApplication implements InitializingBean {
 
     private static final String UTC = "UTC";
 
@@ -24,11 +24,10 @@ public class TicketControlApplication {
     }
 
     // to sync timezone with postgres
-    @PostConstruct
-    public void init() {
+    @Override
+    public void afterPropertiesSet() throws Exception {
         TimeZone.setDefault(TimeZone.getTimeZone(UTC));
     }
-
     @Bean
     public ConnectionFactory connectionFactory() {
         PostgresqlConnectionConfiguration config =
@@ -43,4 +42,5 @@ public class TicketControlApplication {
 
         return new PostgresqlConnectionFactory(config);
     }
+
 }

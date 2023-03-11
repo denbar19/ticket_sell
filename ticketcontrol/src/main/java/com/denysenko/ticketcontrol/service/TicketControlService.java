@@ -2,7 +2,6 @@ package com.denysenko.ticketcontrol.service;
 
 import com.denysenko.ticketcontrol.controller.dto.TicketDto;
 import com.denysenko.ticketcontrol.entity.Ticket;
-import com.denysenko.ticketcontrol.mapper.mapstruct.ClientMapper;
 import com.denysenko.ticketcontrol.repository.TicketRepository;
 import com.denysenko.ticketcontrol.resource.PaymentResource;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +46,7 @@ public class TicketControlService {
         return ticketRepository.findById(routeId);
     }
 
-    public Flux<Ticket> getTicketsByPaymentIds(List<String> paymentIds) {
+    public Flux<Ticket> getTicketsByPaymentIds(List<UUID> paymentIds) {
         return ticketRepository.getTicketsByPaymentsIds(paymentIds);
     }
 

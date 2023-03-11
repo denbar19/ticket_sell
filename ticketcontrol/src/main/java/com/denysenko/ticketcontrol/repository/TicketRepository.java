@@ -11,5 +11,5 @@ import java.util.UUID;
 public interface TicketRepository extends R2dbcRepository<Ticket, UUID> {
 
     @Query("SELECT * FROM ticket WHERE payment_id IN (:paymnetIds)")
-    Flux<Ticket> getTicketsByPaymentsIds(List<String> paymentIds);
+    Flux<Ticket> getTicketsByPaymentsIds(List<UUID> paymentIds);
 }
