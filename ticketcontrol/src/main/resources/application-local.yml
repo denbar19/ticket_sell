@@ -2,14 +2,17 @@ server:
   port: 8081
 
 logging:
-  file.name: ticketcontrol.log
+  file.name: ticketcontrol-debug.log
   level:
     root: INFO
-    org.springframework.web: INFO
+    org.springframework.web: TRACE
     org.springframework.r2dbc: INFO
+    com.denysenko: DEBUG
     io.r2dbc.postgresql.QUERY: INFO
     io.r2dbc.postgresql.PARAM: INFO
-    com.denysenko.ticketcontrol: INFO
+#    io:
+#      r2dbc:
+#        postgresql: DEBUG
 
 spring:
   main:

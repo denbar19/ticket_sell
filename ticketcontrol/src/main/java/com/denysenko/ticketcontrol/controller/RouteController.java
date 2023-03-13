@@ -27,7 +27,6 @@ public class RouteController {
 
     @PostMapping(path = "/route", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<RouteDto> saveRoute(@Validated @RequestBody RouteDto route) {
-        log.debug("{}", route);
         return routeService.saveRoute(mapper.toRoute(route))
                            .map(mapper::toRouteDto);
     }
