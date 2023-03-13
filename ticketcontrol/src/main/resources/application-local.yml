@@ -1,0 +1,27 @@
+server:
+  port: 8081
+
+logging:
+  file.name: ticketcontrol-debug.log
+  level:
+    root: INFO
+    org.springframework.web: TRACE
+    org.springframework.r2dbc: INFO
+    com.denysenko: DEBUG
+    io.r2dbc.postgresql.QUERY: INFO
+    io.r2dbc.postgresql.PARAM: INFO
+#    io:
+#      r2dbc:
+#        postgresql: DEBUG
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  r2dbc:
+    url: r2dbc:postgresql://127.0.0.1:15432/ticket_sell?currentSchema=public,connectionTimeZone=UTC
+    username: admin
+    password: admin
+    pool:
+      enabled: false
+  mvc:
+    log-request-details: true

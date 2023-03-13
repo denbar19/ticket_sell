@@ -30,7 +30,6 @@ public class TicketsController {
 
     @PostMapping(path = "/ticket", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<Map<String, UUID>>> saveTicket(@Validated @RequestBody TicketDto ticket) {
-        log.debug("{}", ticket);
         return ticketService.saveTicket(ticket)
                             .doOnNext(t -> log.debug("saved ticket from service: {}", t))
                             .defaultIfEmpty(Ticket.builder().build())
